@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjrf4ax25835a"]
+
+[ext_resource type="Script" path="res://NavigatorEntity.gd" id="1_nqige"]
+[ext_resource type="Script" path="res://Target.gd" id="2_kdsin"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4k3pw"]
+vertices = PackedVector2Array(426, 184, -367, 188, -371, -254, 419, -259)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-382, -264, -377, 199, 437, 194, 429, -270)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="Gradient" id="Gradient_nor4q"]
+colors = PackedColorArray(0, 0, 0.698039, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bpp4u"]
+gradient = SubResource("Gradient_nor4q")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8h6y"]
+size = Vector2(62, 60)
+
+[sub_resource type="Gradient" id="Gradient_nbchr"]
+colors = PackedColorArray(0, 0.980392, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hdf4q"]
+gradient = SubResource("Gradient_nbchr")
+
+[node name="NavAgent Example" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_4k3pw")
+
+[node name="NavigatorEntity" type="CharacterBody2D" parent="." node_paths=PackedStringArray("movement_target")]
+script = ExtResource("1_nqige")
+movement_target = NodePath("../Target")
+
+[node name="Sprite2D" type="Sprite2D" parent="NavigatorEntity"]
+texture = SubResource("GradientTexture2D_bpp4u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigatorEntity"]
+shape = SubResource("RectangleShape2D_n8h6y")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavigatorEntity"]
+
+[node name="RecalcTimer" type="Timer" parent="NavigatorEntity"]
+wait_time = 0.5
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(25, -37)
+zoom = Vector2(1.5, 1.5)
+
+[node name="Target" type="Node2D" parent="."]
+position = Vector2(258, -32)
+script = ExtResource("2_kdsin")
+
+[node name="Sprite2D" type="Sprite2D" parent="Target"]
+texture = SubResource("GradientTexture2D_hdf4q")

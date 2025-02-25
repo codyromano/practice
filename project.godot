@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Practice"
-run/main_scene="res://node_2d.tscn"
+run/main_scene="res://nav_agent_example.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/mode=2
+window/stretch/mode="viewport"
 
 [rendering]
 
